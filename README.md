@@ -1,3 +1,8 @@
+以下是完整的 **README.md**（中文版 + 英文版）。您可以将下面的内容直接覆盖您原来的 README 文件。
+
+---
+
+```markdown
 # 神经网络学习 XOR 问题 —— 反向传播可视化（终极版）
 
 本项目完整实现了多层感知机（MLP）神经网络，可学习 XOR 等逻辑门问题，并配有丰富的实时可视化功能，直观展示反向传播、决策边界形成、权重演化等核心过程。
@@ -167,9 +172,185 @@ XOR 的数据在二维空间中是线性不可分的，单层感知机只能学�
 
 如果你有任何改进建议或发现了 bug，欢迎提交 Issue 或 Pull Request。
 
----
-
 
 
 
 **Enjoy exploring the beauty of neural networks! 🧠✨**
+
+---
+
+---
+
+# Neural Network Learning XOR Problem – Backpropagation Visualization (Ultimate Edition)
+
+This project implements a complete multi-layer perceptron (MLP) neural network capable of learning XOR and other logic gates, with rich real‑time visualizations that intuitively display backpropagation, decision boundary formation, weight evolution, and more.
+
+---
+
+## 📌 Introduction
+
+XOR (exclusive OR) is a classic linearly inseparable problem that a single‑layer perceptron cannot solve. A multi‑layer neural network, however, can perfectly fit it using the **backpropagation algorithm**. This project builds a configurable neural network system from scratch, supporting:
+
+- Multiple activation functions, loss functions, and optimizers
+- Learning rate scheduling, regularization, and Dropout
+- Real‑time animated visualizations (network structure, loss curves, decision boundaries, weight distributions, etc.)
+- Model saving and loading
+- Evaluation metrics (accuracy, precision, recall, F1, confusion matrix)
+
+Through visualization, you can intuitively observe how the network adjusts from random weights step by step until it successfully fits the target function.
+
+---
+
+## ✨ Key Features
+
+- **Complete backpropagation** – manual gradient computation without relying on deep learning frameworks.
+- **Rich activation functions**: Sigmoid, ReLU, Tanh, Leaky ReLU, ELU.
+- **Multiple optimizers**: SGD, Momentum, Adam.
+- **Learning rate schedulers**: constant, exponential decay, cosine annealing, step decay.
+- **Regularization**: L1, L2, Dropout.
+- **Loss functions**: MSE, binary cross‑entropy.
+- **Datasets**: XOR, AND, OR, NAND, XNOR, Circle, Spiral.
+- **Advanced visualizations**:
+  - Dynamic network structure (neuron activations, connection weights)
+  - Training loss / accuracy curves
+  - Real‑time decision boundary plot
+  - Weight distribution histograms
+  - Learning rate curve
+  - Prediction result table
+- **Model persistence**: save/load weights and optimizer state.
+- **Early stopping** to prevent overfitting.
+
+---
+
+## 🛠 Dependencies
+
+- Python 3.7+
+- NumPy
+- Matplotlib
+
+Install dependencies:
+
+```bash
+pip install numpy matplotlib
+```
+
+---
+
+## 🚀 Usage
+
+### 1. Run directly
+
+In your terminal:
+
+```bash
+python neural_network_xor.py
+```
+
+By default, it uses the XOR dataset, network structure `[2, 8, 8, 1]`, activation `sigmoid`, optimizer `adam`, and trains for 1000 epochs. A visualization window will appear and update in real time.
+
+### 2. Custom configuration
+
+Modify the `config` dictionary inside the `main()` function:
+
+```python
+config = {
+    'dataset': 'xor',           # Options: xor, and, or, nand, xnor, circle, spiral
+    'network_structure': [2, 8, 8, 1],  # Input → hidden → output layer sizes
+    'activation': 'sigmoid',     # sigmoid, relu, tanh, leaky_relu, elu
+    'learning_rate': 0.5,
+    'scheduler_type': 'cosine',  # constant, exponential, cosine, step
+    'optimizer_type': 'adam',    # sgd, momentum, adam
+    'loss_type': 'mse',          # mse, binary_crossentropy
+    'reg_type': 'none',          # none, l1, l2, dropout
+    'reg_lambda': 0.01,
+    'dropout_rate': 0.0,         # Only used when reg_type='dropout'
+    'epochs': 1000,
+    'steps_per_frame': 10,
+    'interval': 50               # milliseconds
+}
+```
+
+### 3. Load a saved model
+
+```python
+from ModelPersistence import ModelPersistence
+nn = ModelPersistence.load_model("trained_model.npz")
+# Use nn.forward(X) for prediction
+```
+
+---
+
+## 📊 Visualization Panels
+
+When you run the program, a window with multiple subplots appears:
+
+| Panel | Content |
+|-------|---------|
+| Top‑left (large) | **Neural Network Structure**: node colors represent activations, connection colors indicate weight sign, thickness indicates magnitude |
+| Top‑right (left) | **Training Loss Curve** |
+| Top‑right (right) | **Accuracy Curve** |
+| Middle‑right | **Decision Boundary**: background shows prediction probability, points are training samples |
+| Bottom‑left | **Weight Distribution Histograms** per layer |
+| Bottom‑right | **Learning Rate Curve** |
+| Bottom | **Prediction Table**: input, expected, predicted, error, and correctness for each sample |
+
+---
+
+## 📁 File Structure
+
+```
+.
+├── neural_network_xor.py    # Main script (all implementations included)
+├── trained_model.npz        # Automatically saved model after training (optional)
+└── README.md                # This file
+```
+
+> All code is contained in a single script for easy reading and experimentation.
+
+---
+
+## 🔬 Brief Technical Principles
+
+### Core Steps of Backpropagation
+
+1. **Forward pass**: compute linear transformations `z = W·a + b` and activations `a = σ(z)` layer by layer.
+2. **Compute loss**: using MSE or cross‑entropy.
+3. **Backward pass**: starting from the output layer, use the chain rule to compute the error term `δ` for each layer, then obtain gradients `∂L/∂W` and `∂L/∂b`.
+4. **Parameter update**: update weights and biases using the chosen optimizer (SGD, Momentum, or Adam).
+
+### Why XOR Needs a Multi‑Layer Network?
+
+XOR data is linearly inseparable in 2D space. A single‑layer perceptron can only learn linear decision boundaries. A multi‑layer network with nonlinear activations can combine multiple linear boundaries to form arbitrarily complex decision regions, thus perfectly classifying XOR.
+
+---
+
+## 📈 Example Output (Training XOR)
+
+```
+Config: [2, 8, 8, 1], sigmoid, adam, mse
+...
+Final loss: 0.000123
+Accuracy: 100.0%
+[Confusion Matrix]
+  TP: 2   FP: 0
+  FN: 0   TN: 2
+```
+
+The visualization window will show how the network gradually converges from random to correct mappings.
+
+---
+
+## 📝 License
+
+This project is for educational and research purposes only. No specific license restrictions. Feel free to modify and share.
+
+---
+
+## 🤝 Contributing
+
+If you have suggestions or find bugs, please open an Issue or submit a Pull Request.
+
+
+
+**Enjoy exploring the beauty of neural networks! 🧠✨**
+```
