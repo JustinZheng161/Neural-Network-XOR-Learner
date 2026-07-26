@@ -22,12 +22,6 @@ Key Features:
 12. Weight distribution and gradient flow visualization
 13. Multiple logic gate dataset support (XOR, AND, OR, NAND, XNOR)
 14. Advanced datasets (Circle, Spiral classification)
-
-Author: Trae AI
-Date: 2026-07-24
-Version: 3.0 - Ultimate Edition
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
